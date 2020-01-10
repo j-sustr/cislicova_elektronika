@@ -1,0 +1,182 @@
+2 VHDL Invariants
+
+3 VHDL Design Units
+======================
+     The entity declaration describes the inputs and outputs of your circuit.
+        This set of signals is often referred to as the interface to your circuit
+        since these signals are what the circuitry, external to the entity, uses
+        to interact with your circuit.
+
+     Signals described in the entity declaration include a mode specifier and
+        a type. The mode specifier can be either an in or an out (or, as we will
+        see later on, even an inout) while the type is either a std logic or
+        std logic vector.
+
+     The word bundle is preferred over the word bus when dealing with
+        multiple signals that share a similar purpose. The word bus has other
+        connotations that are not consistent with the bundle definition.
+
+     Multiple signals that share a similar purpose should be declared as
+        a bundle using a std logic vector type. Bundled signals such as
+        these are always easier to work with in VHDL compared to scalar types
+        such as std logic.
+
+     The architecture describes what your circuit actually does and what
+        its behavior is. Several possible implementations (models) of the same
+        behavior are possible in VHDL. These are the data-flow model, the
+        behavioral model, the structural model as well as any combination
+        of them, generally called hybrid model.
+
+4 VHDL Programming Paradigm
+===============================
+     The entity/architecture pair is the interface description and behavior
+        description of how a digital circuit operates.
+
+     The main design consideration in VHDL modeling supports the fact that
+        digital circuits operate in parallel. In other words, the various design
+        units in a digital design process and store information independently of
+        each other. This is the major difference between VHDL and higher-level
+        computer programming languages.
+
+     The major signal assignment types in VHDL are: concurrent signal
+        assignment, conditional signal assignment, selected signal assignment
+        and process statements. Each concurrent statement is interpreted as
+        acting in parallel (concurrently) to other concurrent statements.
+
+     The process statement is a concurrent statement that contains a series
+        of statements which will be executed in a sequential manner, one after
+        the other. A programmer uses a process statement when he wants to
+        execute some commands in a sequential manner.
+
+     The architecture body can contain any or all of the mentioned concur-
+        rent statements.
+
+     Signals that are declared as outputs in the entity declaration cannot
+        appear on the right-hand side of a signal assignment operator. This
+        characteristic is prevented from being a problem by the declaration
+        and use of intermediate signals. Intermediate signals are similar to
+        signals declared in entities except that they contain no mode specifier.
+        Intermediate signals are declared inside the architecture body just
+        before the begin statement.
+
+     Generally speaking, there are multiple approaches in modeling any given
+        digital circuit. In other words, various types of concurrent statements
+        can be used to describe the same circuit. The designer should strive for
+        clarity in digital modeling and allow the VHDL synthesizer to sort out
+        the details.
+
+5 Standard Models in VHDL Architectures
+============================================
+     The three main flavors of VHDL modeling styles include data-flow,
+        behavioral and structural models.
+
+     VHDL behavioral models, by definition, use process statements.
+
+     VHDL data-flow models by definition use concurrent signal assignment,
+        conditional signal assignment and/or selected signal assignment.
+
+     The process statement is a concurrent statement. Statements appearing
+        within the process statement are sequential statements.
+
+     The if statement has a direct analogy to the conditional signal assignment statement used in data-flow modeling.
+
+     The case statement has a direct analogy to the selected signal assignment statement used in data-flow modeling.
+
+     Both the case statement and the if statement can be nested. Concurrent, 
+        conditional and selected signal assignment statementsc cannot be nested.
+
+     The simplest concurrent statement is the concurrent signal assignment
+        statement (e.g. “F <= A;”). Its sequential equivalent is the sequential
+        signal assignment statement and it looks identical.
+
+
+6 VHDL Operators
+=================
+
+     Storage elements in VHDL are induced by not specifying output conditions for every possible input condition.
+
+     Unintended generation of storage elements is generally listed by the
+        synthesizer as latch generation. Once again, latches are generated when
+        there is an existing input condition to a circuit that does not have a
+        corresponding output specification.
+
+     Memory elements can be induced by both data-flow and behavioral models.
+
+     If a signal declared in the entity declaration has a mode specifier of out,
+        that signal cannot appear on the right-hand side of a signal assignment
+        operator. This limitation is bypassed by using intermediate signals for
+        any functional assignments and later assigning the intermediate signal
+        to the output signal using a concurrent signal assignment statement.
+        
+     The mode specification of buffer should be avoided in favor of intermediate signals.
+
+
+7 Using VHDL for Sequential Circuits
+=====================================
+
+     Storage elements in VHDL are induced by not specifying output conditions for every possible input condition.
+    
+     Unintended generation of storage elements is generally listed by the
+        synthesizer as latch generation. Once again, latches are generated when
+        there is an existing input condition to a circuit that does not have a
+        corresponding output specification.
+     Memory elements can be induced by both data-flow and behavioral models.
+    
+     If a signal declared in the entity declaration has a mode specifier of out,
+        that signal cannot appear on the right-hand side of a signal assignment
+        operator. This limitation is bypassed by using intermediate signals for
+        any functional assignments and later assigning the intermediate signal
+        to the output signal using a concurrent signal assignment statement.
+
+     The mode specification of buffer should be avoided in favor of intermediate signals.
+
+
+8 Fininite State Machine design using VHDL
+==========================================
+
+     Modeling FSMs from a state diagram is a straightforward process using
+        VHDL behavioral modeling. The process is so straightforward that
+        it is often considered cookie cutter. The real engineering involved in
+        implementing FSM is in the generation of the state diagram that solved
+        the problem at hand.
+
+     Due to the general versatility of VHDL, there are many approaches
+        that can be used to model FSMs using VHDL. The approach used here
+        details only one of those styles but is generally considered the most
+        straightforward of all styles.
+
+     The actual encoding of the FSM’s state variables when enumeration
+        types are used is left up to the synthesis tool. If a preferred method of
+        variable encoding is desired, using the attribute approach detailed in
+        this section is a simple but viable alternative.
+
+9 Structural Modeling In VHDL
+=================================
+
+     Structural modeling in VHDL supports hierarchical design concepts.
+        The ability to abstract digital circuits to higher levels is the key to
+        understanding and designing complex digital circuits.
+
+     Digital design using schematic capture is an outdated approach: you
+        sould resist the inclination and/or directive at all costs.
+    
+     The VHDL structural model supports the reuse of design units. This
+        includes units you have previously designed as well as the ability to use
+        predefined module libraries.
+    
+     If you use one FPGA software development tool from one of the
+       major FPGA players in the market, you will be able to use digital
+       blocks already developed once you declare them. In this case the entity
+       declaration is not the one of Listing 9.2 but instead a simple library
+       inclusion in your VHDL code that looks like:
+
+        library UNISIM;
+        use UNISIM.VComponents.all;
+
+        All digital blocks available from this library package are described in
+        the documentation of the FPGA software development tool (e.g. Xilinx
+        Vivado).
+
+10 Registers and Register Transfer Level
+=========================================
+
