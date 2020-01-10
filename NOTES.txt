@@ -1,0 +1,3 @@
+& je  concatenate operator
+
+V procesu se jako hodnota signálu bere ta, která byla na začátku. Po celou dobu běhu procesu je stejná.
