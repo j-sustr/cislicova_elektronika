@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 
-entity digits_display is
+entity digits_display_decoder is
 	Port(
 		clk      : in  std_logic;
 		rstn     : in  std_logic;
@@ -18,9 +18,9 @@ entity digits_display is
 		seg_sel  : out std_logic_vector(7 downto 0);
 		cathodes : out std_logic_vector(7 downto 0)
 	);
-end digits_display;
+end digits_display_decoder;
 
-architecture Behavioral of digits_display is
+architecture Behavioral of digits_display_decoder is
 
 	signal selcntr : unsigned(12 + 3 - 1 downto 0);
 

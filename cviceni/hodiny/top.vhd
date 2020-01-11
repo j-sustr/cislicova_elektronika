@@ -59,7 +59,7 @@ begin
         );
 
 
-        display_0: entity work.digits_display
+        display_0: entity work.digits_display_decoder
             port map(
                 clk      => clk,
                 rstn     => rstn,
