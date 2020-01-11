@@ -5,8 +5,9 @@ use ieee.numeric_std.all;
 
 entity top is
     port(
-        reset, enable: in std_logic;
+        reset: in std_logic;
         clk: in std_logic;
+        pause: in std_logic;
         load_digit: in std_logic;
         digit_select: in std_logic_vector(2 downto 0);
         digit_value: in std_logic_vector(3 downto 0);
@@ -43,6 +44,7 @@ begin
         port map(
             clk_10ms => clk_10ms,
             reset => reset,
+            pause => pause,
             load_digit => load_digit,
             digit_select => digit_select,
             digit_value => digit_value,

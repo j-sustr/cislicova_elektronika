@@ -4,7 +4,7 @@
 
 entity hodiny is
     port(
-        clk, reset, enable in: std_logic;
+        clk, reset, enable: in std_logic;
         load: in std_logic;
         load_select: in std_logic_vector(2 downto 0);
         load_value: in std_logic_vector(5 downto 0);

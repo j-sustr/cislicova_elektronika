@@ -9,10 +9,10 @@ entity digital_clock is
         reset: in std_logic;
         
         -- settings interface
-        pause: in std_logic;
+        pause: in std_logic; -- musi byt zastaven, aby slo provadet nastaveni
         load_digit: in std_logic;
-        digit_select: in: std_logic_vector(2 downto 0);
-        digit_value: in: std_logic_vector(3 downto 0);
+        digit_select: in std_logic_vector(2 downto 0);
+        digit_value: in std_logic_vector(3 downto 0);
 
         -- output digits
         hr_d1: out std_logic_vector(1 downto 0); -- d1 ... most significant digit
@@ -39,7 +39,7 @@ architecture Behavioral of digital_clock is
 
 begin
 
-    count_time: process(clk_10ms, load, reset, enable) begin
+    count_time: process(clk_10ms) begin
         if (rising_edge(clk_10ms)) then
             if (reset = '1') then
                 counter_100ms <= 0;
@@ -48,7 +48,7 @@ begin
                 counter_minute <= 0;
                 counter_second <= 0;
             elsif (pause = '1') then
-                if (load = '1') then
+                if (load_digit = '1') then
                     case digit_select is
                         when "000" =>
                             counter_10ms <= to_integer(unsigned(digit_value));
@@ -66,12 +66,9 @@ begin
                             counter_hour <= 10 * to_integer(unsigned(hr_d1_int)) + to_integer(unsigned(digit_value));
                         when "111" =>
                             counter_hour <= 10 * to_integer(unsigned(digit_value)) + to_integer(unsigned(hr_d0_int));
+                        when others =>
+                            null;
                     end case;
-    
-                    counter_minute <= 10 * to_integer(unsigned(mi_d1_in)) + to_integer(unsigned(mi_d0_in));
-                    counter_second <= 10 * to_integer(unsigned(se_d1_in)) + to_integer(unsigned(se_d0_in));
-                    counter_100ms <= to_integer(unsigned(fs_d1_in)); 
-                    counter_10ms <= to_integer(unsigned(fs_d0_in));
                 end if;
             else
                 counter_10ms <= counter_10ms + 1;

@@ -8,7 +8,7 @@ entity d_ff_1 is
         s: in std_logic;
         r: in std_logic;
         clk: in std_logic;
-        d: in: std_logic;
+        d: in std_logic;
         q: out std_logic
     );
 end d_ff_1;
