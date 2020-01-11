@@ -43,18 +43,44 @@ begin
     begin 
         -- hold reset state for 100 ns.
         reset <= '1';
-
+        pause <= '1';
+        
         wait for 100 ns;
-
+        
         reset <= '0';
 
         wait for clk_period * 10;
+        load_digit <= '0';
+        digit_select <= "111";
+        digit_value <= x"1";
+        wait for clk_period * 100;
+        load_digit <= '1';
 
-        
+        wait for clk_period * 100;
+        load_digit <= '0';
+        digit_select <= "110";
+        digit_value <= x"2";
+        wait for clk_period * 100;
+        load_digit <= '1';
 
-        wait for clk_period * 10;
+        wait for clk_period * 100;
+        load_digit <= '0';
+        digit_select <= "101";
+        digit_value <= x"3";
+        wait for clk_period * 100;
+        load_digit <= '1';
 
-        -- insert stimulus here 
+        wait for clk_period * 100;
+        load_digit <= '0';
+        digit_select <= "100";
+        digit_value <= x"4";
+        wait for clk_period * 100;
+        load_digit <= '1';
+
+
+        wait for clk_period * 100;
+
+        pause <= '0';
 
         wait;
    end process;
